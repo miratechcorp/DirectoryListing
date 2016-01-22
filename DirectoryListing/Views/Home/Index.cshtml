@@ -1,0 +1,35 @@
+﻿@model DirectoryListing.Models.Directory
+@{
+    ViewBag.Title = string.Join("/", Model.Ancestors.Select(x => x.Name));
+}
+@{ var last = Model.Ancestors.LastOrDefault(); }
+@if (last != null) {
+<a class="download" href="/_zip/@last.Url"><img src="data:image/png;base64,@DirectoryListing.Models.Info.ZipIcon" />Download</a>
+<ol><li><a href="/">/</a></li>@foreach (var ancestor in Model.Ancestors.Take(Model.Ancestors.Length - 1)) {<li><a href="/@ancestor.Url">@ancestor.Name/</a></li>}<li class="last">@last.Name</li></ol>
+} else {
+<a class="download" href="/_zip/"><img src="data:image/png;base64,@DirectoryListing.Models.Info.ZipIcon" />Download</a>
+<ol><li class="last">/</li></ol>
+}
+<ul>
+@foreach (var directory in Model.Directories) {
+    <li>
+        <a class="download" href="/_zip/@directory.Url">
+            <img src="data:image/png;base64,@DirectoryListing.Models.Info.ZipIcon" />
+            Download
+            </a>
+        <a href="/@directory.Url">
+            <img src="data:image/png;base64,@directory.Icon" />
+            <span class="file-name">@directory.Name</span>
+            </a>
+        </li>
+}
+@foreach (var file in Model.Files) {
+    <li>
+        <a href="/@file.Url">
+            <img src="data:image/png;base64,@file.Icon" />
+            <span class="file-size">@file.Size</span>
+            <span class="file-name">@file.Name</span>
+            </a>
+        </li>
+}
+    </ul>

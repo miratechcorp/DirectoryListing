@@ -1,0 +1,19 @@
+# Ignore unneccesary project files
+*.build
+*.css
+*.css.map
+*.csproj.user
+*.csproj.vs10x
+*.orig
+*.Publish.xml
+*.pubxml
+*.pubxml.user
+*.sass-cache*
+*.suo
+StyleCop.Cache
+us.stackdump
+/*/App_Data
+/*/[Bb]in
+/*/obj
+/packages
+/TestResults

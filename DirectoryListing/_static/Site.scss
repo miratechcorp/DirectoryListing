@@ -1,0 +1,127 @@
+﻿* {
+    border: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    }
+@import url(http://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic);
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    > header {
+        background-color: rgb(0, 101, 189);
+        height: 48px;
+        margin-bottom: 20px;
+        padding: 4px;
+        > img {
+            background-color: #fff;
+            float: left;
+            height: 48px;
+            margin: -4px;
+            padding: 4px 16px;
+            }
+        > h1 {
+            display: none;
+            }
+        > h2 {
+            color: #fff;
+            font-size: 24px;
+            font-style: italic;
+            font-weight: 300;
+            height: 40px;
+            line-height: 40px;
+            padding: 2px 2px 2px 220px;
+            width: 100%;
+            }
+        }
+    > nav {
+        > a {
+            color: #000;
+            display: block;
+            line-height: 32px;
+            height: 100%;
+            text-decoration: none;
+            width: 100%;
+            &:hover {
+                background-color: #ccc;
+                }
+            &.download {
+                float: right;
+                width: 128px;
+                > img {
+                    float: left;
+                    height: 32px;
+                    padding: 8px 16px 8px 8px;
+                    }
+                }
+            }
+        > ol {
+            list-style: none;
+            padding: 4px;
+            > li {
+                display: inline-block;
+                font-weight: 700;
+                min-height: 32px;
+                > a {
+                    color: #666;
+                    display: block;
+                    line-height: 32px;
+                    height: 100%;
+                    text-decoration: none;
+                    width: 100%;
+                    &:hover {
+                        text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        > ul {
+            clear: both;
+            list-style: none;
+            width: 100%;
+            > li {
+                border-top: 1px solid #999;
+                min-height: 32px;
+                width: 100%;
+                &:last-child {
+                    border-bottom: 1px solid #999;
+                    }
+                > a {
+                    color: #000;
+                    display: block;
+                    line-height: 32px;
+                    height: 100%;
+                    text-decoration: none;
+                    width: 100%;
+                    &:hover {
+                        background-color: #ccc;
+                        }
+                    &.download {
+                        float: right;
+                        width: 128px;
+                        }
+                    > img {
+                        float: left;
+                        height: 32px;
+                        padding: 8px 16px 8px 8px;
+                        }
+                    > span {
+                        white-space: pre-wrap;
+                        &.file-size {
+                            color: #666;
+                            display: block;
+                            float: right;
+                            text-align: right;
+                            width: 128px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    > footer {
+        font-size: 12px;
+        margin-top: 40px;
+        padding: 2px;
+        }
+    }
