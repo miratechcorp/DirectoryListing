@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DirectoryListing.Library;
-using Ionic.Zip;
 
 namespace DirectoryListing.Controllers
 {
@@ -52,14 +52,14 @@ namespace DirectoryListing.Controllers
             if (!Directory.Exists(fullPath)) {
                 return HttpNotFound();
             }
-            var stream = new MemoryStream();
-            var zip = new ZipFile();
-            zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestSpeed;
-            zip.AddDirectory(fullPath);
-            zip.Save(stream);
-            stream.Seek(0, SeekOrigin.Begin);
+            string zipFullPath = HttpContext.Server.MapPath(Path.Combine("~/App_Data/Zip", path.TrimEnd('/') + ".zip"));
+            var zipFileInfo = new FileInfo(zipFullPath);
+            if (!System.IO.File.Exists(zipFullPath)) {
+                zipFileInfo.Directory.Create();
+                ZipFile.CreateFromDirectory(fullPath, zipFullPath, CompressionLevel.Fastest, false);
+            }
 
-            return File(stream, "application/zip", new DirectoryInfo(fullPath).Name + ".zip");
+            return File(zipFullPath, "application/zip", zipFileInfo.Name);
         }
 
         #endregion Public Methods
