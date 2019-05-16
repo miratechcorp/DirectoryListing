@@ -1,10 +1,6 @@
-﻿#region Header
-
-// Building a Better ExtractAssociatedIcon
+﻿// Building a Better ExtractAssociatedIcon
 // Bradley Smith - 2010/07/28
 // (updated 2014/11/13)
-
-#endregion Header
 
 using System;
 using System.Drawing;
@@ -12,7 +8,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 
 /// <summary>
-/// Represents the different icon sizes that can be extracted using the 
+/// Represents the different icon sizes that can be extracted using the
 /// <see cref="IconTools.ExtractAssociatedIcon"/> method.
 /// </summary>
 public enum ShellIconSize : uint
@@ -21,6 +17,7 @@ public enum ShellIconSize : uint
     /// Specifies a small (16x16) icon.
     /// </summary>
     SmallIcon = IconTools.SHGFI_ICON | IconTools.SHGFI_SMALLICON,
+
     /// <summary>
     /// Specifies a large (32x32) icon.
     /// </summary>
@@ -28,46 +25,38 @@ public enum ShellIconSize : uint
 }
 
 /// <summary>
-/// Defines a set of utility methods for extracting icons for files and file 
+/// Defines a set of utility methods for extracting icons for files and file
 /// types.
 /// </summary>
 public static class IconTools
 {
-    #region Constants
-
     /// <summary>
-    /// Retrieve the handle to the icon that represents the file and the index 
-    /// of the icon within the system image list. The handle is copied to the 
-    /// hIcon member of the structure specified by psfi, and the index is 
+    /// Retrieve the handle to the icon that represents the file and the index
+    /// of the icon within the system image list. The handle is copied to the
+    /// hIcon member of the structure specified by psfi, and the index is
     /// copied to the iIcon member.
     /// </summary>
     internal const uint SHGFI_ICON = 0x100;
 
     /// <summary>
-    /// Modify SHGFI_ICON, causing the function to retrieve the file's large 
+    /// Modify SHGFI_ICON, causing the function to retrieve the file's large
     /// icon. The SHGFI_ICON flag must also be set.
     /// </summary>
     internal const uint SHGFI_LARGEICON = 0x0;
 
     /// <summary>
-    /// Modify SHGFI_ICON, causing the function to retrieve the file's small 
-    /// icon. Also used to modify SHGFI_SYSICONINDEX, causing the function to 
-    /// return the handle to the system image list that contains small icon 
+    /// Modify SHGFI_ICON, causing the function to retrieve the file's small
+    /// icon. Also used to modify SHGFI_SYSICONINDEX, causing the function to
+    /// return the handle to the system image list that contains small icon
     /// images. The SHGFI_ICON and/or SHGFI_SYSICONINDEX flag must also be set.
     /// </summary>
     internal const uint SHGFI_SMALLICON = 0x1;
 
     /// <summary>
-    /// Indicates that the function should not attempt to access the file 
+    /// Indicates that the function should not attempt to access the file
     /// specified by pszPath.
     /// </summary>
-    const uint SHGFI_USEFILEATTRIBUTES = 0x10;
-
-    #endregion Constants
-
-    #region Static Methods
-
-    #region Public Static Methods
+    private const uint SHGFI_USEFILEATTRIBUTES = 0x10;
 
     /// <summary>
     /// Returns the default icon representation for files with the specified extension.
@@ -90,12 +79,13 @@ public static class IconTools
     /// <returns>An icon that represents the file.</returns>
     public static Icon GetIconForFile(string filename, ShellIconSize size)
     {
-        SHFILEINFO shinfo = new SHFILEINFO();
+        var shinfo = new SHFILEINFO();
         NativeMethods.SHGetFileInfo(filename, Directory.Exists(filename) ? 0x10U : 0U, ref shinfo, (uint)Marshal.SizeOf(shinfo), size);
 
         Icon icon = null;
 
-        if (shinfo.hIcon.ToInt32() != 0) {
+        if (shinfo.hIcon.ToInt32() != 0)
+        {
             // create the icon from the native handle and make a managed copy of it
             icon = (Icon)Icon.FromHandle(shinfo.hIcon).Clone();
 
@@ -105,12 +95,6 @@ public static class IconTools
 
         return icon;
     }
-
-    #endregion Public Static Methods
-
-    #endregion Static Methods
-
-    #region Nested Types
 
     /// <summary>
     /// Contains information about a file object.
@@ -151,10 +135,6 @@ public static class IconTools
     /// </summary>
     private class NativeMethods
     {
-        #region Static Methods
-
-        #region Public Static Methods
-
         /// <summary>
         /// Destroys an icon and frees any memory the icon occupied.
         /// </summary>
@@ -180,11 +160,5 @@ public static class IconTools
             uint cbSizeFileInfo,
             ShellIconSize uFlags
             );
-
-        #endregion Public Static Methods
-
-        #endregion Static Methods
     }
-
-    #endregion Nested Types
 }
